@@ -1,0 +1,562 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); background: var(--color-background-tertiary); min-height: 100vh; }
+  .app { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+
+  .header { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; }
+  .header-left h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+  .header-left p { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; }
+  .badge { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 500; }
+  .badge-blue { background: #E6F1FB; color: #0C447C; }
+
+  .tabs { display: flex; gap: 4px; margin-bottom: 1rem; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 6px; }
+  .tab { flex: 1; padding: 8px 6px; font-size: 13px; font-weight: 400; border: none; border-radius: var(--border-radius-md); background: transparent; cursor: pointer; color: var(--color-text-secondary); transition: all 0.15s; text-align: center; }
+  .tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); font-weight: 500; }
+  .tab:hover:not(.active) { color: var(--color-text-primary); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
+  .card-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+  .welcome-hero { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 2rem; margin-bottom: 1rem; }
+  .welcome-hero h2 { font-size: 24px; font-weight: 500; margin-bottom: 6px; }
+  .welcome-hero p { color: var(--color-text-secondary); font-size: 15px; }
+
+  .metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; }
+  .metric-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .metric-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+
+  .hw-card { border-left: 3px solid #378ADD; padding-left: 12px; margin-bottom: 10px; }
+  .hw-card h3 { font-size: 15px; font-weight: 500; }
+  .hw-card p { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; }
+  .hw-card .due { font-size: 12px; color: #185FA5; font-weight: 500; margin-top: 4px; }
+
+  .ta-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .ta-row:last-child { border-bottom: none; }
+  .ta-info { display: flex; align-items: center; gap: 10px; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; }
+  .av-blue { background: #E6F1FB; color: #0C447C; }
+  .av-teal { background: #E1F5EE; color: #085041; }
+  .av-purple { background: #EEEDFE; color: #3C3489; }
+  .av-amber { background: #FAEEDA; color: #633806; }
+  .ta-name { font-size: 14px; font-weight: 500; }
+  .ta-hours { font-size: 12px; color: var(--color-text-secondary); }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .dot-on { background: #1D9E75; }
+  .dot-off { background: #888780; }
+  .status-label { font-size: 13px; }
+  .status-on { color: #0F6E56; }
+  .status-off { color: var(--color-text-secondary); }
+
+  .signin-area { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; }
+  .signin-area label { font-size: 13px; color: var(--color-text-secondary); display: block; margin-bottom: 6px; }
+  .signin-row { display: flex; gap: 8px; }
+  .signin-row input { flex: 1; }
+  .signin-msg { font-size: 13px; margin-top: 8px; padding: 6px 10px; border-radius: var(--border-radius-md); }
+  .msg-success { background: #EAF3DE; color: #27500A; }
+  .msg-error { background: #FCEBEB; color: #791F1F; }
+  .msg-info { background: #E6F1FB; color: #0C447C; }
+
+  .oh-block { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+  .oh-label { font-size: 14px; font-weight: 500; }
+  .oh-time { font-size: 13px; color: var(--color-text-secondary); }
+  .oh-today { border-left: 3px solid #378ADD; }
+
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .cal-header { font-size: 11px; font-weight: 500; text-align: center; padding: 6px 2px; color: var(--color-text-secondary); }
+  .cal-day { background: var(--color-background-secondary); border-radius: 6px; padding: 6px 4px; min-height: 64px; font-size: 11px; }
+  .cal-day-num { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 3px; }
+  .cal-event { background: #E6F1FB; color: #0C447C; border-radius: 3px; padding: 2px 4px; margin-bottom: 2px; font-size: 10px; line-height: 1.3; }
+  .cal-event-rec { background: #E1F5EE; color: #085041; }
+  .cal-today .cal-day-num { color: #378ADD; font-weight: 700; }
+
+  .schedule-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .schedule-table th { text-align: left; padding: 8px 10px; font-size: 12px; font-weight: 500; color: var(--color-text-secondary); border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .schedule-table td { padding: 10px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); vertical-align: top; }
+  .schedule-table tr:last-child td { border-bottom: none; }
+  .week-num { font-weight: 500; }
+  .topic-tag { display: inline-block; background: var(--color-background-secondary); border-radius: 4px; padding: 1px 6px; font-size: 12px; margin-right: 4px; }
+  .edit-btn { font-size: 12px; color: #185FA5; background: none; border: none; cursor: pointer; padding: 2px 6px; }
+  .edit-btn:hover { text-decoration: underline; }
+
+  .edit-modal { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-top: 8px; }
+  .form-row { margin-bottom: 12px; }
+  .form-row label { font-size: 13px; color: var(--color-text-secondary); display: block; margin-bottom: 4px; }
+  .form-row input, .form-row textarea, .form-row select { width: 100%; }
+  .form-row textarea { height: 64px; resize: vertical; }
+  .btn-row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+  .btn-save { background: #378ADD; color: white; border: none; border-radius: var(--border-radius-md); padding: 8px 18px; font-size: 13px; cursor: pointer; }
+  .btn-cancel { background: none; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 13px; cursor: pointer; color: var(--color-text-secondary); }
+
+  .people-section { margin-bottom: 1.5rem; }
+  .people-section h3 { font-size: 14px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .people-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .person-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; text-align: center; }
+  .person-avatar { width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 500; }
+  .person-name { font-size: 14px; font-weight: 500; }
+  .person-role { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+
+  .axiom-placeholder { color: var(--color-text-secondary); font-size: 14px; padding: 2rem; text-align: center; border: 1px dashed var(--color-border-tertiary); border-radius: var(--border-radius-md); }
+
+  .section-label { font-size: 11px; color: var(--color-text-secondary); font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+
+  @media (max-width: 600px) {
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+    .tabs { flex-wrap: wrap; }
+    .tab { font-size: 11px; }
+  }
+</style>
+
+<h2 class="sr-only" style="position:absolute;left:-9999px">CS 2050 Course Website — Student Dashboard</h2>
+
+<div class="app">
+  <div class="header">
+    <div class="header-left">
+      <h1>CS 2050 — Intro to Discrete Math</h1>
+      <p id="currentDate"></p>
+    </div>
+    <span class="badge badge-blue">Spring 2025</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('home')">Home</button>
+    <button class="tab" onclick="showTab('axioms')">Theorems & Axioms</button>
+    <button class="tab" onclick="showTab('people')">People</button>
+    <button class="tab" onclick="showTab('calendar')">Schedule & Hours</button>
+    <button class="tab" onclick="showTab('schedule')">Course Schedule</button>
+    <button class="tab" onclick="showTab('admin')">TA Sign-In</button>
+  </div>
+
+  <!-- HOME -->
+  <div class="panel active" id="tab-home">
+    <div class="welcome-hero">
+      <h2>Welcome to CS 2050</h2>
+      <p>Introduction to Discrete Mathematics for Computer Science — check today's office hours, your upcoming assignments, and who's in the TA room right now.</p>
+    </div>
+
+    <div class="grid3">
+      <div class="metric"><div class="metric-label">Current week</div><div class="metric-val" id="currentWeek">Week 10</div></div>
+      <div class="metric"><div class="metric-label">TAs on duty now</div><div class="metric-val" id="taOnCount">0</div></div>
+      <div class="metric"><div class="metric-label">Next assignment</div><div class="metric-val" id="nextHwLabel">HW 6</div></div>
+    </div>
+
+    <div class="grid2" style="margin-top:1rem">
+      <div>
+        <div class="card">
+          <div class="card-title">Today's Office Hours</div>
+          <div id="todayOH"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Upcoming Assignment</div>
+          <div class="hw-card">
+            <h3 id="hwTitle">Homework 6 — Graph Theory Basics</h3>
+            <p id="hwDesc">Problems on degree sequences, Eulerian paths, and graph coloring.</p>
+            <div class="due" id="hwDue">Due: Friday, Apr 11 at 11:59 PM</div>
+          </div>
+          <div class="hw-card" style="border-color:#5DCAA5; margin-top:10px">
+            <h3 id="hw2Title">Homework 7 — Trees & Spanning Trees</h3>
+            <p id="hw2Desc">Minimum spanning trees, binary trees, and tree traversals.</p>
+            <div class="due" style="color:#0F6E56" id="hw2Due">Due: Friday, Apr 18 at 11:59 PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Live TA Dashboard</div>
+        <div id="taDashboard"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AXIOMS -->
+  <div class="panel" id="tab-axioms">
+    <div class="card">
+      <div class="card-title">Allowed Theorems & Axioms</div>
+      <div class="axiom-placeholder">This section will be populated by the instructor with the list of theorems and axioms students are permitted to use on assignments and exams.</div>
+    </div>
+  </div>
+
+  <!-- PEOPLE -->
+  <div class="panel" id="tab-people">
+    <div class="card">
+      <div class="people-section">
+        <h3>Instructor</h3>
+        <div class="people-grid">
+          <div class="person-card">
+            <div class="person-avatar av-blue">PR</div>
+            <div class="person-name">Prof. [Name]</div>
+            <div class="person-role">Instructor</div>
+          </div>
+        </div>
+      </div>
+      <div class="people-section">
+        <h3>Teaching Assistants</h3>
+        <div class="people-grid" id="taPeopleGrid"></div>
+      </div>
+      <div class="people-section">
+        <h3>Students</h3>
+        <div class="axiom-placeholder">Student roster will be added here by the admin.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="panel" id="tab-calendar">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Weekly Office Hours</div>
+        <div id="ohList"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Recitation Times</div>
+        <div class="oh-block"><div><div class="oh-label">Section A</div><div class="oh-time">Mon 2:00–3:00 PM · Skiles 202</div></div></div>
+        <div class="oh-block"><div><div class="oh-label">Section B</div><div class="oh-time">Tue 11:00 AM–12:00 PM · Skiles 202</div></div></div>
+        <div class="oh-block"><div><div class="oh-label">Section C</div><div class="oh-time">Wed 4:00–5:00 PM · Skiles 202</div></div></div>
+        <div class="oh-block"><div><div class="oh-label">Section D</div><div class="oh-time">Thu 2:00–3:00 PM · Skiles 202</div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">April 2025 — Calendar View</div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+  </div>
+
+  <!-- COURSE SCHEDULE (admin editable) -->
+  <div class="panel" id="tab-schedule">
+    <div class="card" style="margin-bottom:1rem; background: #E6F1FB; border-color: #B5D4F4;">
+      <p style="font-size:13px; color:#185FA5;">Admin view — click "Edit" on any row to modify the course schedule. Changes are saved to local storage.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Living Course Schedule</div>
+      <table class="schedule-table" id="scheduleTable"></table>
+    </div>
+    <div id="editForm" style="display:none"></div>
+  </div>
+
+  <!-- TA SIGN-IN -->
+  <div class="panel" id="tab-admin">
+    <div class="card" style="max-width: 480px; margin: 0 auto;">
+      <div class="card-title">TA Sign-In / Sign-Out</div>
+      <p style="font-size:13px; color:var(--color-text-secondary); margin-bottom:14px;">Enter your student ID to clock in or out. This works from any device.</p>
+      <div class="signin-area">
+        <label>Student ID</label>
+        <div class="signin-row">
+          <input type="text" id="taIdInput" placeholder="e.g. 903123456" maxlength="12" />
+          <button class="btn-save" onclick="handleTASignIn()">Submit</button>
+        </div>
+        <div id="signinMsg" style="display:none"></div>
+      </div>
+    </div>
+    <div class="card" style="max-width: 480px; margin: 0 auto;">
+      <div class="card-title">All TAs — Hours Log</div>
+      <div id="taHoursLog"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const FULL_DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+const TA_IDS = {
+  '903000001': { name: 'Alex Chen', initials: 'AC', color: 'av-blue' },
+  '903000002': { name: 'Priya Nair', initials: 'PN', color: 'av-teal' },
+  '903000003': { name: 'Jordan Lee', initials: 'JL', color: 'av-purple' },
+  '903000004': { name: 'Sam Torres', initials: 'ST', color: 'av-amber' },
+};
+
+const DEFAULT_SCHEDULE = [
+  { week: 1, dates: 'Jan 13–17', topics: 'Propositional Logic, Truth Tables', hw: 'HW 1 released', notes: '' },
+  { week: 2, dates: 'Jan 20–24', topics: 'Predicates, Quantifiers, Logical Equivalences', hw: 'HW 1 due Jan 24', notes: '' },
+  { week: 3, dates: 'Jan 27–31', topics: 'Proof Methods: Direct, Contrapositive', hw: 'HW 2 released', notes: '' },
+  { week: 4, dates: 'Feb 3–7', topics: 'Proof by Contradiction, Induction Intro', hw: 'HW 2 due Feb 7', notes: '' },
+  { week: 5, dates: 'Feb 10–14', topics: 'Strong Induction, Well-Ordering', hw: 'HW 3 released', notes: '' },
+  { week: 6, dates: 'Feb 17–21', topics: 'Sets, Set Operations, Venn Diagrams', hw: 'HW 3 due Feb 21', notes: 'Exam 1: Feb 19' },
+  { week: 7, dates: 'Feb 24–28', topics: 'Functions, Injections, Surjections, Bijections', hw: 'HW 4 released', notes: '' },
+  { week: 8, dates: 'Mar 3–7', topics: 'Countability, Diagonalization', hw: 'HW 4 due Mar 7', notes: '' },
+  { week: 9, dates: 'Mar 10–14', topics: 'Relations, Equivalence Classes', hw: 'HW 5 released', notes: 'Spring Break Mar 17–21' },
+  { week: 10, dates: 'Mar 24–28', topics: 'Graph Theory Intro, Degree Sequences', hw: 'HW 5 due Mar 28', notes: '' },
+  { week: 11, dates: 'Mar 31–Apr 4', topics: 'Trees, Spanning Trees, BFS/DFS', hw: 'HW 6 released', notes: 'Exam 2: Apr 2' },
+  { week: 12, dates: 'Apr 7–11', topics: 'Graph Coloring, Planar Graphs', hw: 'HW 6 due Apr 11', notes: '' },
+  { week: 13, dates: 'Apr 14–18', topics: 'Combinatorics: Permutations, Combinations', hw: 'HW 7 released', notes: '' },
+  { week: 14, dates: 'Apr 21–25', topics: 'Binomial Theorem, Pigeonhole Principle', hw: 'HW 7 due Apr 25', notes: '' },
+  { week: 15, dates: 'Apr 28–30', topics: 'Review & Wrap-up', hw: '', notes: 'Final Exam TBD' },
+];
+
+const OH_SCHEDULE = [
+  { day: 'Monday', times: '10:00–11:00 AM', location: 'Clough 228', ta: 'Alex Chen' },
+  { day: 'Monday', times: '2:00–4:00 PM', location: 'Clough 228', ta: 'Priya Nair' },
+  { day: 'Tuesday', times: '1:00–3:00 PM', location: 'Clough 228', ta: 'Jordan Lee' },
+  { day: 'Wednesday', times: '11:00 AM–1:00 PM', location: 'Clough 228', ta: 'Alex Chen' },
+  { day: 'Wednesday', times: '3:00–5:00 PM', location: 'Clough 228', ta: 'Sam Torres' },
+  { day: 'Thursday', times: '10:00 AM–12:00 PM', location: 'Clough 228', ta: 'Priya Nair' },
+  { day: 'Friday', times: '1:00–3:00 PM', location: 'Clough 228', ta: 'Jordan Lee' },
+];
+
+function getStorage(key, def) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch(e) { return def; }
+}
+function setStorage(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+}
+
+let taStatus = getStorage('cs2050_ta_status', {});
+let taHours = getStorage('cs2050_ta_hours', {});
+let scheduleData = getStorage('cs2050_schedule', DEFAULT_SCHEDULE);
+
+function now() { return Date.now(); }
+
+function formatDuration(ms) {
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  return h > 0 ? h + 'h ' + m + 'm' : m + 'm';
+}
+
+function getTotalHours(id) {
+  const h = taHours[id] || { total: 0, sessions: [] };
+  let total = h.total || 0;
+  if (taStatus[id] && taStatus[id].signedIn) {
+    total += now() - taStatus[id].signInTime;
+  }
+  return total;
+}
+
+function renderTADashboard() {
+  const container = document.getElementById('taDashboard');
+  if (!container) return;
+  let html = '';
+  let onCount = 0;
+  for (const [id, ta] of Object.entries(TA_IDS)) {
+    const status = taStatus[id] || { signedIn: false };
+    const on = status.signedIn;
+    if (on) onCount++;
+    const total = getTotalHours(id);
+    html += `<div class="ta-row">
+      <div class="ta-info">
+        <div class="avatar ${ta.color}">${ta.initials}</div>
+        <div><div class="ta-name">${ta.name}</div><div class="ta-hours">Total: ${formatDuration(total)}</div></div>
+      </div>
+      <div><span class="status-dot ${on?'dot-on':'dot-off'}"></span><span class="status-label ${on?'status-on':'status-off'}">${on?'On duty':'Off'}</span></div>
+    </div>`;
+  }
+  container.innerHTML = html;
+  const el = document.getElementById('taOnCount');
+  if (el) el.textContent = onCount;
+}
+
+function renderTAPeopleGrid() {
+  const g = document.getElementById('taPeopleGrid');
+  if (!g) return;
+  let html = '';
+  for (const [id, ta] of Object.entries(TA_IDS)) {
+    html += `<div class="person-card"><div class="person-avatar ${ta.color}">${ta.initials}</div><div class="person-name">${ta.name}</div><div class="person-role">Teaching Assistant</div></div>`;
+  }
+  g.innerHTML = html;
+}
+
+function renderTAHoursLog() {
+  const container = document.getElementById('taHoursLog');
+  if (!container) return;
+  let html = '';
+  for (const [id, ta] of Object.entries(TA_IDS)) {
+    const total = getTotalHours(id);
+    const status = taStatus[id] || { signedIn: false };
+    const h = taHours[id] || { sessions: [] };
+    const sessions = (h.sessions || []).slice(-3).reverse();
+    html += `<div class="ta-row">
+      <div class="ta-info">
+        <div class="avatar ${ta.color}">${ta.initials}</div>
+        <div>
+          <div class="ta-name">${ta.name} <span style="font-size:11px;color:var(--color-text-secondary)">ID: ${id}</span></div>
+          <div class="ta-hours">Total hours: <strong>${formatDuration(total)}</strong> &nbsp;|&nbsp; Status: <span class="${status.signedIn?'status-on':'status-off'}">${status.signedIn?'Signed in':'Signed out'}</span></div>
+          ${sessions.length?'<div class="ta-hours" style="margin-top:3px">Last sessions: '+sessions.map(s=>'<span style="background:var(--color-background-secondary);border-radius:3px;padding:1px 5px;margin-right:3px;">'+formatDuration(s.duration)+'</span>').join('')+'</div>':''}
+        </div>
+      </div>
+    </div>`;
+  }
+  container.innerHTML = html;
+}
+
+function handleTASignIn() {
+  const input = document.getElementById('taIdInput');
+  const msg = document.getElementById('signinMsg');
+  const id = (input.value || '').trim();
+  if (!id) { showMsg(msg, 'Please enter a student ID.', 'msg-error'); return; }
+  const ta = TA_IDS[id];
+  if (!ta) { showMsg(msg, 'Student ID not recognized as a TA. Contact the course admin.', 'msg-error'); input.value = ''; return; }
+
+  const status = taStatus[id] || { signedIn: false };
+  if (!taStatus[id]) taStatus[id] = { signedIn: false };
+  if (!taHours[id]) taHours[id] = { total: 0, sessions: [] };
+
+  if (!status.signedIn) {
+    taStatus[id] = { signedIn: true, signInTime: now() };
+    setStorage('cs2050_ta_status', taStatus);
+    showMsg(msg, ta.name + ' signed IN successfully. Welcome!', 'msg-success');
+  } else {
+    const duration = now() - status.signInTime;
+    taHours[id].total = (taHours[id].total || 0) + duration;
+    taHours[id].sessions.push({ in: status.signInTime, out: now(), duration });
+    taStatus[id] = { signedIn: false };
+    setStorage('cs2050_ta_status', taStatus);
+    setStorage('cs2050_ta_hours', taHours);
+    showMsg(msg, ta.name + ' signed OUT. Session: ' + formatDuration(duration), 'msg-info');
+  }
+  input.value = '';
+  renderTADashboard();
+  renderTAHoursLog();
+}
+
+function showMsg(el, text, cls) {
+  el.textContent = text;
+  el.className = 'signin-msg ' + cls;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+function renderOHToday() {
+  const today = FULL_DAYS[new Date().getDay()];
+  const todayOhs = OH_SCHEDULE.filter(oh => oh.day === today);
+  const container = document.getElementById('todayOH');
+  if (!container) return;
+  if (todayOhs.length === 0) {
+    container.innerHTML = '<p style="font-size:14px;color:var(--color-text-secondary)">No scheduled office hours today.</p>';
+  } else {
+    container.innerHTML = todayOhs.map(oh =>
+      `<div class="oh-block oh-today"><div><div class="oh-label">${oh.ta}</div><div class="oh-time">${oh.times} · ${oh.location}</div></div></div>`
+    ).join('');
+  }
+}
+
+function renderOHList() {
+  const container = document.getElementById('ohList');
+  if (!container) return;
+  const today = FULL_DAYS[new Date().getDay()];
+  container.innerHTML = OH_SCHEDULE.map(oh =>
+    `<div class="oh-block ${oh.day===today?'oh-today':''}">
+      <div><div class="oh-label">${oh.day} — ${oh.ta}</div><div class="oh-time">${oh.times} · ${oh.location}</div></div>
+    </div>`
+  ).join('');
+}
+
+function renderCalendar() {
+  const grid = document.getElementById('calGrid');
+  if (!grid) return;
+  const today = new Date();
+  const month = 3; const year = 2025;
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+
+  let html = DAY_NAMES.map(d => `<div class="cal-header">${d}</div>`).join('');
+  for (let i = 0; i < firstDay; i++) html += '<div></div>';
+
+  const events = {
+    2: [{text:'OH: Alex 10–11am', cls:''}],
+    7: [{text:'OH: Priya 2–4pm', cls:''},{text:'Recitation A',cls:'cal-event-rec'}],
+    8: [{text:'OH: Jordan 1–3pm', cls:''}],
+    9: [{text:'OH: Alex 11–1pm', cls:''}],
+    10: [{text:'OH: Sam 3–5pm', cls:''}],
+    11: [{text:'OH: Priya 10am', cls:''},{text:'HW 6 due',cls:'cal-event-rec'}],
+    14: [{text:'OH: Alex 10–11am', cls:''}],
+    16: [{text:'OH: Alex 11–1pm', cls:''}],
+    18: [{text:'OH: Jordan 1–3pm', cls:''},{text:'HW 7 due',cls:'cal-event-rec'}],
+    2: [{text:'OH: Alex 10–11am', cls:''}],
+  };
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const isToday = today.getMonth()===month && today.getFullYear()===year && today.getDate()===d;
+    const evs = events[d] || [];
+    html += `<div class="cal-day ${isToday?'cal-today':''}">
+      <div class="cal-day-num">${d}</div>
+      ${evs.map(e=>`<div class="cal-event ${e.cls}">${e.text}</div>`).join('')}
+    </div>`;
+  }
+  grid.innerHTML = html;
+}
+
+function renderScheduleTable() {
+  const table = document.getElementById('scheduleTable');
+  if (!table) return;
+  table.innerHTML = `<thead><tr>
+    <th style="width:50px">Week</th>
+    <th style="width:120px">Dates</th>
+    <th>Topics</th>
+    <th style="width:180px">Assignments</th>
+    <th style="width:140px">Notes</th>
+    <th style="width:50px"></th>
+  </tr></thead><tbody>${scheduleData.map((row,i)=>`
+    <tr>
+      <td><span class="week-num">${row.week}</span></td>
+      <td style="font-size:13px;color:var(--color-text-secondary)">${row.dates}</td>
+      <td>${row.topics.split(',').map(t=>`<span class="topic-tag">${t.trim()}</span>`).join(' ')}</td>
+      <td style="font-size:13px">${row.hw}</td>
+      <td style="font-size:13px;color:${row.notes.includes('Exam')?'#185FA5':'var(--color-text-secondary)'}">${row.notes}</td>
+      <td><button class="edit-btn" onclick="openEdit(${i})">Edit</button></td>
+    </tr>
+  `).join('')}</tbody>`;
+}
+
+function openEdit(idx) {
+  const row = scheduleData[idx];
+  const form = document.getElementById('editForm');
+  form.style.display = 'block';
+  form.innerHTML = `<div class="edit-modal">
+    <div style="font-size:14px;font-weight:500;margin-bottom:12px">Editing Week ${row.week}</div>
+    <div class="form-row"><label>Dates</label><input id="ef-dates" value="${row.dates}"></div>
+    <div class="form-row"><label>Topics (comma separated)</label><input id="ef-topics" value="${row.topics}"></div>
+    <div class="form-row"><label>Assignments</label><input id="ef-hw" value="${row.hw}"></div>
+    <div class="form-row"><label>Notes</label><input id="ef-notes" value="${row.notes}"></div>
+    <div class="btn-row">
+      <button class="btn-cancel" onclick="closeEdit()">Cancel</button>
+      <button class="btn-save" onclick="saveEdit(${idx})">Save</button>
+    </div>
+  </div>`;
+  form.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function saveEdit(idx) {
+  scheduleData[idx].dates = document.getElementById('ef-dates').value;
+  scheduleData[idx].topics = document.getElementById('ef-topics').value;
+  scheduleData[idx].hw = document.getElementById('ef-hw').value;
+  scheduleData[idx].notes = document.getElementById('ef-notes').value;
+  setStorage('cs2050_schedule', scheduleData);
+  closeEdit();
+  renderScheduleTable();
+}
+
+function closeEdit() {
+  const form = document.getElementById('editForm');
+  form.style.display = 'none';
+  form.innerHTML = '';
+}
+
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  const tabs = ['home','axioms','people','calendar','schedule','admin'];
+  const idx = tabs.indexOf(name);
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+
+  if (name === 'calendar') renderOHList(), renderCalendar();
+  if (name === 'schedule') renderScheduleTable();
+  if (name === 'people') renderTAPeopleGrid();
+  if (name === 'admin') renderTAHoursLog();
+}
+
+function setDateHeader() {
+  const el = document.getElementById('currentDate');
+  if (el) el.textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+
+setDateHeader();
+renderOHToday();
+renderTADashboard();
+
+setInterval(renderTADashboard, 30000);
+</script>
