@@ -41,7 +41,6 @@
       line-height: 1.6;
     }
 
-    /* ── Header ── */
     .site-header {
       background: var(--bg);
       border-bottom: 1px solid var(--border);
@@ -65,13 +64,11 @@
       letter-spacing: 0.02em;
     }
 
-    /* ── Nav ── */
     .nav {
       background: var(--bg);
       border-bottom: 1px solid var(--border);
       display: flex;
       padding: 0 2rem;
-      gap: 0;
     }
     .nav-btn {
       background: none;
@@ -88,14 +85,11 @@
     .nav-btn:hover { color: var(--text); }
     .nav-btn.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 500; }
 
-    /* ── Main layout ── */
     .main { max-width: 1080px; margin: 0 auto; padding: 2rem; }
 
-    /* ── Panels ── */
     .panel { display: none; }
     .panel.active { display: block; }
 
-    /* ── Cards ── */
     .card {
       background: var(--bg);
       border: 1px solid var(--border);
@@ -113,11 +107,9 @@
       margin-bottom: 1rem;
     }
 
-    /* ── Grid helpers ── */
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 
-    /* ── Hero ── */
     .hero {
       background: var(--bg);
       border: 1px solid var(--border);
@@ -129,7 +121,6 @@
     .hero h2 { font-size: 26px; font-weight: 500; margin-bottom: 8px; }
     .hero p { color: var(--text-secondary); font-size: 15px; max-width: 640px; }
 
-    /* ── Metrics ── */
     .metric {
       background: var(--bg-secondary);
       border: 1px solid var(--border);
@@ -139,7 +130,6 @@
     .metric-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
     .metric-val { font-size: 24px; font-weight: 500; }
 
-    /* ── HW and Exam cards ── */
     .hw-item {
       border-left: 3px solid var(--blue);
       padding-left: 14px;
@@ -160,7 +150,6 @@
     .exam-item p { font-size: 13px; color: var(--text-secondary); }
     .exam-item .due { font-size: 12px; font-weight: 500; margin-top: 5px; color: var(--red); }
 
-    /* ── OH blocks ── */
     .oh-item {
       display: flex;
       justify-content: space-between;
@@ -181,7 +170,6 @@
     .oh-time { font-size: 13px; color: var(--text-secondary); margin-top: 1px; }
     .oh-loc { font-size: 12px; color: var(--text-muted); }
 
-    /* ── Calendar ── */
     .cal-wrap { overflow-x: auto; }
     .cal-grid {
       display: grid;
@@ -222,13 +210,8 @@
     .cal-ev.hw   { background: var(--amber-light); color: var(--amber); }
     .cal-ev.exam { background: #fee2e2; color: var(--red); }
 
-    /* ── Schedule table ── */
     .sched-wrap { overflow-x: auto; }
-    table.sched {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
+    table.sched { width: 100%; border-collapse: collapse; font-size: 14px; }
     table.sched th {
       text-align: left;
       padding: 10px 12px;
@@ -240,11 +223,7 @@
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
-    table.sched td {
-      padding: 11px 12px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
+    table.sched td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
     table.sched tr:last-child td { border-bottom: none; }
     table.sched tr:hover td { background: var(--bg-secondary); }
     .tag {
@@ -260,7 +239,6 @@
     .note-exam { color: var(--red); font-weight: 500; }
     .note-holiday { color: var(--amber); }
 
-    /* ── People ── */
     .people-section { margin-bottom: 2rem; }
     .people-section:last-child { margin-bottom: 0; }
     .section-heading {
@@ -273,11 +251,7 @@
       padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
     }
-    .people-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 12px;
-    }
+    .people-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
     .person {
       background: var(--bg-secondary);
       border: 1px solid var(--border);
@@ -286,26 +260,19 @@
       text-align: center;
     }
     .avatar {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      font-weight: 500;
-      margin: 0 auto 10px;
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; font-weight: 500; margin: 0 auto 10px;
     }
-    .av-blue   { background: var(--blue-light);   color: var(--blue-dark); }
-    .av-teal   { background: var(--teal-light);   color: var(--teal); }
+    .av-blue   { background: var(--blue-light);  color: var(--blue-dark); }
+    .av-teal   { background: var(--teal-light);  color: var(--teal); }
     .av-purple { background: #ede9fe; color: #4c1d95; }
-    .av-amber  { background: var(--amber-light);  color: var(--amber); }
+    .av-amber  { background: var(--amber-light); color: var(--amber); }
     .av-coral  { background: #fee2e2; color: var(--red); }
     .person-name  { font-size: 14px; font-weight: 500; }
     .person-role  { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
     .person-email { font-size: 11px; color: var(--blue); margin-top: 5px; word-break: break-all; }
 
-    /* ── Axioms placeholder ── */
     .placeholder {
       text-align: center;
       padding: 3rem 2rem;
@@ -315,7 +282,6 @@
       border-radius: var(--radius);
     }
 
-    /* ── Responsive ── */
     @media (max-width: 700px) {
       .main { padding: 1rem; }
       .grid2, .grid3 { grid-template-columns: 1fr; }
@@ -336,6 +302,7 @@
   <span class="badge">Summer 2026</span>
 </header>
 
+<!-- Tab order: home, people, hours, schedule, axioms -->
 <nav class="nav">
   <button class="nav-btn active" onclick="showTab('home')">Home</button>
   <button class="nav-btn" onclick="showTab('people')">People</button>
@@ -346,7 +313,7 @@
 
 <main class="main">
 
-  <!-- ═══ HOME ═══ -->
+  <!-- HOME -->
   <div class="panel active" id="tab-home">
     <div class="hero">
       <h2>Welcome to CS 2050</h2>
@@ -354,9 +321,9 @@
     </div>
 
     <div class="grid3" style="margin-bottom:1.25rem">
-      <div class="metric"><div class="metric-label">Current week</div><div class="metric-val" id="currentWeek">Week 1</div></div>
+      <div class="metric"><div class="metric-label">Current week</div><div class="metric-val">Week 1</div></div>
       <div class="metric"><div class="metric-label">Semester</div><div class="metric-val">Summer 2026</div></div>
-      <div class="metric"><div class="metric-label">Next assignment</div><div class="metric-val" id="nextHw">HW 1</div></div>
+      <div class="metric"><div class="metric-label">Next assignment</div><div class="metric-val">HW 1</div></div>
     </div>
 
     <div class="grid2">
@@ -366,6 +333,7 @@
       </div>
       <div class="card">
         <div class="card-label">Upcoming Assignments</div>
+        <!-- EDIT: add/remove hw-item or exam-item blocks here -->
         <div class="hw-item">
           <h3>Homework 1</h3>
           <p>Propositional Logic</p>
@@ -381,22 +349,13 @@
     </div>
   </div>
 
-  <!-- ═══ THEOREMS & AXIOMS ═══ -->
-  <div class="panel" id="tab-axioms">
-    <div class="card">
-      <div class="card-label">Allowed Theorems &amp; Axioms</div>
-      <div class="placeholder">
-        This section will be populated by the instructor with the list of theorems and axioms<br>students are permitted to use on assignments and exams.
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ PEOPLE ═══ -->
+  <!-- PEOPLE -->
   <div class="panel" id="tab-people">
     <div class="card">
       <div class="people-section">
         <div class="section-heading">Instructor</div>
         <div class="people-grid">
+          <!-- EDIT: change initials in avatar div, name, role, email -->
           <div class="person">
             <div class="avatar av-blue">PR</div>
             <div class="person-name">Prof. [Name]</div>
@@ -408,6 +367,7 @@
       <div class="people-section">
         <div class="section-heading">Teaching Assistants</div>
         <div class="people-grid">
+          <!-- EDIT: duplicate/remove person blocks as needed -->
           <div class="person">
             <div class="avatar av-teal">AC</div>
             <div class="person-name">Alex Chen</div>
@@ -437,7 +397,7 @@
     </div>
   </div>
 
-  <!-- ═══ SCHEDULE & HOURS ═══ -->
+  <!-- OFFICE HOURS & RECITATION -->
   <div class="panel" id="tab-hours">
     <div class="grid2" style="margin-bottom:1rem">
       <div class="card">
@@ -446,6 +406,7 @@
       </div>
       <div class="card">
         <div class="card-label">Recitation Times</div>
+        <!-- EDIT: update section names, times, and rooms -->
         <div class="oh-item"><div><div class="oh-name">Section A</div><div class="oh-time">Mon 2:00–3:00 PM</div><div class="oh-loc">Skiles 202</div></div></div>
         <div class="oh-item"><div><div class="oh-name">Section B</div><div class="oh-time">Tue 11:00 AM–12:00 PM</div><div class="oh-loc">Skiles 202</div></div></div>
         <div class="oh-item"><div><div class="oh-name">Section C</div><div class="oh-time">Wed 4:00–5:00 PM</div><div class="oh-loc">Skiles 202</div></div></div>
@@ -460,7 +421,7 @@
     </div>
   </div>
 
-  <!-- ═══ COURSE SCHEDULE ═══ -->
+  <!-- COURSE SCHEDULE -->
   <div class="panel" id="tab-schedule">
     <div class="card">
       <div class="card-label">Summer 2026 Course Schedule</div>
@@ -470,39 +431,52 @@
     </div>
   </div>
 
+  <!-- THEOREMS & AXIOMS -->
+  <div class="panel" id="tab-axioms">
+    <div class="card">
+      <div class="card-label">Allowed Theorems &amp; Axioms</div>
+      <div class="placeholder">
+        This section will be populated by the instructor with the list of theorems and axioms<br>
+        students are permitted to use on assignments and exams.
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <script>
-  const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const DAYS      = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
+  // EDIT: office hours — day must match DAYS exactly
   const OH = [
-    { day:'Monday',    ta:'Alex Chen',   time:'10:00–11:00 AM', loc:'Clough 228' },
-    { day:'Monday',    ta:'Priya Nair',  time:'2:00–4:00 PM',   loc:'Clough 228' },
-    { day:'Tuesday',   ta:'Jordan Lee',  time:'1:00–3:00 PM',   loc:'Clough 228' },
-    { day:'Wednesday', ta:'Alex Chen',   time:'11:00 AM–1:00 PM',loc:'Clough 228' },
-    { day:'Wednesday', ta:'Sam Torres',  time:'3:00–5:00 PM',   loc:'Clough 228' },
-    { day:'Thursday',  ta:'Priya Nair',  time:'10:00 AM–12:00 PM',loc:'Clough 228' },
-    { day:'Friday',    ta:'Jordan Lee',  time:'1:00–3:00 PM',   loc:'Clough 228' },
+    { day:'Monday',    ta:'Alex Chen',  time:'10:00–11:00 AM',    loc:'Clough 228' },
+    { day:'Monday',    ta:'Priya Nair', time:'2:00–4:00 PM',      loc:'Clough 228' },
+    { day:'Tuesday',   ta:'Jordan Lee', time:'1:00–3:00 PM',      loc:'Clough 228' },
+    { day:'Wednesday', ta:'Alex Chen',  time:'11:00 AM–1:00 PM',  loc:'Clough 228' },
+    { day:'Wednesday', ta:'Sam Torres', time:'3:00–5:00 PM',      loc:'Clough 228' },
+    { day:'Thursday',  ta:'Priya Nair', time:'10:00 AM–12:00 PM', loc:'Clough 228' },
+    { day:'Friday',    ta:'Jordan Lee', time:'1:00–3:00 PM',      loc:'Clough 228' },
   ];
 
+  // EDIT: course schedule rows
   const SCHEDULE = [
-    { week:1,  dates:'May 18–22',    topics:'Propositional Logic, Truth Tables',                   hw:'HW 1 released',      notes:'' },
-    { week:2,  dates:'May 25–29',    topics:'Predicates, Quantifiers, Logical Equivalences',       hw:'HW 1 due May 22',    notes:'Memorial Day May 25' },
-    { week:3,  dates:'Jun 1–5',      topics:'Direct Proof, Contrapositive, Contradiction',         hw:'HW 2 due May 29',    notes:'' },
-    { week:4,  dates:'Jun 8–12',     topics:'Mathematical Induction, Strong Induction',            hw:'HW 3 released',      notes:'Exam 1: Jun 10' },
-    { week:5,  dates:'Jun 15–19',    topics:'Sets, Set Operations, Functions',                     hw:'HW 3 due Jun 12',    notes:'' },
-    { week:6,  dates:'Jun 22–26',    topics:'Injections, Surjections, Bijections, Cardinality',   hw:'HW 4 released',      notes:'' },
-    { week:7,  dates:'Jun 29–Jul 3', topics:'Relations, Equivalence Classes, Partial Orders',     hw:'HW 4 due Jun 26',    notes:'Jul 4 holiday' },
-    { week:8,  dates:'Jul 6–10',     topics:'Graph Theory: Paths, Cycles, Connectivity',          hw:'HW 5 released',      notes:'Exam 2: Jul 8' },
-    { week:9,  dates:'Jul 13–17',    topics:'Trees, Spanning Trees, Planar Graphs',               hw:'HW 5 due Jul 10',    notes:'' },
-    { week:10, dates:'Jul 20–24',    topics:'Graph Coloring, Euler & Hamilton Paths',             hw:'HW 6 released',      notes:'' },
-    { week:11, dates:'Jul 27–31',    topics:'Combinatorics: Permutations, Combinations',          hw:'HW 6 due Jul 24',    notes:'' },
-    { week:12, dates:'Aug 3–7',      topics:'Binomial Theorem, Pigeonhole, Inclusion-Exclusion',  hw:'HW 7 released',      notes:'' },
-    { week:13, dates:'Aug 10–14',    topics:'Probability Basics, Discrete Distributions',         hw:'HW 7 due Aug 7',     notes:'Last day Aug 14' },
-    { week:14, dates:'Aug 17–21',    topics:'Review',                                             hw:'',                   notes:'Final Exam: Aug 19' },
+    { week:1,  dates:'May 18–22',    topics:'Propositional Logic, Truth Tables',                  hw:'HW 1 released',   notes:'' },
+    { week:2,  dates:'May 25–29',    topics:'Predicates, Quantifiers, Logical Equivalences',      hw:'HW 1 due May 22', notes:'Memorial Day May 25' },
+    { week:3,  dates:'Jun 1–5',      topics:'Direct Proof, Contrapositive, Contradiction',        hw:'HW 2 due May 29', notes:'' },
+    { week:4,  dates:'Jun 8–12',     topics:'Mathematical Induction, Strong Induction',           hw:'HW 3 released',   notes:'Exam 1: Jun 10' },
+    { week:5,  dates:'Jun 15–19',    topics:'Sets, Set Operations, Functions',                    hw:'HW 3 due Jun 12', notes:'' },
+    { week:6,  dates:'Jun 22–26',    topics:'Injections, Surjections, Bijections, Cardinality',  hw:'HW 4 released',   notes:'' },
+    { week:7,  dates:'Jun 29–Jul 3', topics:'Relations, Equivalence Classes, Partial Orders',    hw:'HW 4 due Jun 26', notes:'Jul 4 holiday' },
+    { week:8,  dates:'Jul 6–10',     topics:'Graph Theory: Paths, Cycles, Connectivity',         hw:'HW 5 released',   notes:'Exam 2: Jul 8' },
+    { week:9,  dates:'Jul 13–17',    topics:'Trees, Spanning Trees, Planar Graphs',              hw:'HW 5 due Jul 10', notes:'' },
+    { week:10, dates:'Jul 20–24',    topics:'Graph Coloring, Euler & Hamilton Paths',            hw:'HW 6 released',   notes:'' },
+    { week:11, dates:'Jul 27–31',    topics:'Combinatorics: Permutations, Combinations',         hw:'HW 6 due Jul 24', notes:'' },
+    { week:12, dates:'Aug 3–7',      topics:'Binomial Theorem, Pigeonhole, Inclusion-Exclusion', hw:'HW 7 released',   notes:'' },
   ];
 
+  // EDIT: calendar events — keys are day numbers in May 2026
+  // cls options: '' = blue (OH), 'rec' = green, 'hw' = amber, 'exam' = red
   const CAL_EVENTS = {
     18: [{text:'Classes begin', cls:'rec'}],
     19: [{text:'OH: Alex 10–11am', cls:''}],
@@ -516,22 +490,19 @@
     29: [{text:'HW 2 due', cls:'hw'}, {text:'OH: Priya 10am', cls:''}],
   };
 
-  // ── Date header ──
-  document.getElementById('headerDate').textContent =
-    new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  // ── Tab order must match nav button order exactly ──
+  const TAB_ORDER = ['home', 'people', 'hours', 'schedule', 'axioms'];
 
-  // ── Tab switching ──
   function showTab(name) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-' + name).classList.add('active');
-    const order = ['home','axioms','people','hours','schedule'];
-    document.querySelectorAll('.nav-btn')[order.indexOf(name)].classList.add('active');
+    const idx = TAB_ORDER.indexOf(name);
+    if (idx !== -1) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
     if (name === 'hours')    { renderOHList(); renderCalendar(); }
     if (name === 'schedule') { renderSchedule(); }
   }
 
-  // ── Today's OH ──
   function renderTodayOH() {
     const today = DAYS[new Date().getDay()];
     const items = OH.filter(o => o.day === today);
@@ -539,40 +510,36 @@
     if (!items.length) {
       el.innerHTML = '<p style="color:var(--text-secondary);font-size:14px">No scheduled office hours today.</p>';
     } else {
-      el.innerHTML = items.map(o =>
-        `<div class="oh-item today">
+      el.innerHTML = items.map(o => `
+        <div class="oh-item today">
           <div>
             <div class="oh-name">${o.ta}</div>
             <div class="oh-time">${o.time}</div>
             <div class="oh-loc">${o.loc}</div>
           </div>
-        </div>`
-      ).join('');
+        </div>`).join('');
     }
   }
 
-  // ── OH list ──
   function renderOHList() {
     const today = DAYS[new Date().getDay()];
-    document.getElementById('ohList').innerHTML = OH.map(o =>
-      `<div class="oh-item ${o.day === today ? 'today' : ''}">
+    document.getElementById('ohList').innerHTML = OH.map(o => `
+      <div class="oh-item ${o.day === today ? 'today' : ''}">
         <div>
           <div class="oh-name">${o.day} — ${o.ta}</div>
           <div class="oh-time">${o.time} · ${o.loc}</div>
         </div>
-      </div>`
-    ).join('');
+      </div>`).join('');
   }
 
-  // ── Calendar ──
   function renderCalendar() {
-    const MONTH = 4, YEAR = 2026; // May 2026
+    const MONTH = 4, YEAR = 2026;
     const today = new Date();
     const firstDay = new Date(YEAR, MONTH, 1).getDay();
-    const days = new Date(YEAR, MONTH + 1, 0).getDate();
+    const daysInMonth = new Date(YEAR, MONTH + 1, 0).getDate();
     let html = DAY_SHORT.map(d => `<div class="cal-head">${d}</div>`).join('');
     for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
-    for (let d = 1; d <= days; d++) {
+    for (let d = 1; d <= daysInMonth; d++) {
       const isToday = today.getMonth() === MONTH && today.getFullYear() === YEAR && today.getDate() === d;
       const evs = (CAL_EVENTS[d] || []).map(e => `<div class="cal-ev ${e.cls}">${e.text}</div>`).join('');
       html += `<div class="cal-day${isToday ? ' today' : ''}"><div class="cal-num">${d}</div>${evs}</div>`;
@@ -580,11 +547,10 @@
     document.getElementById('calGrid').innerHTML = html;
   }
 
-  // ── Schedule table ──
   function renderSchedule() {
     const rows = SCHEDULE.map(r => {
       const tags = r.topics.split(',').map(t => `<span class="tag">${t.trim()}</span>`).join('');
-      const noteClass = r.notes.includes('Exam') || r.notes.includes('Final') ? 'note-exam'
+      const noteClass = (r.notes.includes('Exam') || r.notes.includes('Final')) ? 'note-exam'
                       : (r.notes.includes('Day') || r.notes.includes('holiday') || r.notes.includes('Last')) ? 'note-holiday' : '';
       return `<tr>
         <td style="font-weight:500;white-space:nowrap">${r.week}</td>
@@ -604,7 +570,9 @@
       </tr></thead><tbody>${rows}</tbody>`;
   }
 
-  // ── Init ──
+  document.getElementById('headerDate').textContent =
+    new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+
   renderTodayOH();
 </script>
 </body>
